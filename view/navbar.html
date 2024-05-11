@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <title>Document</title>
+
+    <style>
+        .container {
+          display: grid;
+    grid-template-columns: 0.3fr 1.3fr !important;
+    grid-template-rows: 2.1fr 21.3fr !important;
+    gap: 2px 5px !important;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "navbar cabezera"
+        ". iframe";
+
+        }
+
+
+        .iframe {
+            grid-area: iframe;
+            height: calc(99vh - 21px); 
+        }
+
+        iframe {
+            width: 100%;
+            /* Hace que el iframe ocupe todo el ancho disponible dentro de su contenedor */
+            height: 100%;
+            /* Hace que el iframe ocupe todo el alto disponible dentro de su contenedor */
+        }
+
+        .navbar {
+            grid-area: navbar;
+        }
+
+        .cabezera {
+            grid-area: cabezera;
+            background-color: rgb(216, 216, 228);
+        }
+    </style>
+
+
+</head>
+
+<body class="container">
+   
+    <div class="navbar">
+
+
+    <aside class="sidebar">
+        <div id="leftside-navigation" class="nano">
+          <ul class="nano-content">
+           
+                <img src="../assets/img/logoImg.png" alt="">
+          
+             
+            <li>
+              <a onclick="cargarURL('../view/dashboard/dashboard.html')"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+            </li>
+           
+            <li class="sub-menu active">
+              <a href="javascript:void(0);" ><i class="fa fa-envelope"></i><span>Clientes</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+              <ul>
+                <li class="active"><a href="javascript:void(0);" onclick="cargarURL('../view/cliente/nuevoCliente.html')">Nuevo Cliente</a></li>
+
+                <li class="active"><a href="javascript:void(0);" onclick="cargarURL('../view/cliente/modal.html')">Clientes</a></li>
+                
+              </ul>
+            </li>
+            <li class="sub-menu">
+              <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i><span>Productos</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+              <ul>
+                <li><a onclick="cargarURL('../view/producto/nuevoProducto.html')">Nuevo Producto</a>
+                </li>
+                <li><a onclick="cargarURL('../view/producto/modal.html')">productos</a>
+                </li>
+             
+              </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i><span>Ventas</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+                <ul>
+                  <li><a  onclick="cargarURL('../view/venta/Venta.html')">Gestión ventas </a>
+                  </li>
+                  <li><a  onclick="cargarURL('../view/venta/nuevaVenta.html')">Nueva venta </a>
+                  </li>
+         
+                </ul>
+              </li>
+           
+        
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <div class="iframe">
+        <iframe id="iframeCliente"  src="../index.html" frameborder="0"></iframe>    
+       </div>
+       <!-- <div class="cabezera">
+        cabezera
+    </div> -->
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+      <script src="../js/navbar.js"></script>
+      <script>
+        function cargarURL(url) {
+            document.getElementById('iframeCliente').src = url;
+        }
+    </script>
+</body>
+
+</html>

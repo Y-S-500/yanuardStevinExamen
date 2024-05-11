@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="container">
+    <h2>Crear Productos</h2>
+    <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+            <label for="validationCustom01" class="form-label">Nombre del Producto:</label>
+            <input type="text" class="form-control" id="nombreProducto" value="" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un nombre del producto.
+            </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+  
+        <div class="col-md-5">
+          <label for="validationCustom02" class="form-label">Descripción:</label>
+          <input type="text" class="form-control" id="description" value="" required>
+          <div class="invalid-feedback">
+            Por favor, ingresa su descripcion
+          </div>
+          <div class="valid-feedback">
+            ¡Se ve bien!
+          </div>
+        </div>
+        <div class="col-md-2">
+          <label for="validationCustomUsername" class="form-label">Cantidad:</label>
+          <div class="input-group has-validation">
+            <input type="number" class="form-control" id="cantidad" aria-describedby="inputGroupPrepend" required placeholder="0">
+            <div class="invalid-feedback">
+                Por favor, ingresa su cantidas.
+              </div>
+              <div class="valid-feedback">
+                ¡Se ve bien!
+              </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+            <label for="validationCustom01" class="form-label">Precio:</label>
+            <input type="number" class="form-control" id="precio" value="" required placeholder="0">
+            <div class="invalid-feedback">
+                Por favor, ingresa su precio.
+              </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label for="validationCustom02" class="form-label">% iva:</label>
+            <input type="number" class="form-control" id="procentajeIva" value="" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa su % de iva.
+              </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label for="validationCustomUsername" class="form-label">% Descuento:</label>
+            <div class="input-group has-validation">
+              <input type="number" class="form-control" id="procentajeDescuento" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback">
+                Por favor, ingresa un dirección.
+              </div>
+              <div class="valid-feedback">
+                ¡Se ve bien!
+              </div>
+            </div>
+          </div>
+
+
+
+
+       
+        <div class="col-md-3">
+            <label for="validationCustom03" class="form-label">Estado:</label>
+            <select class="form-select" id="estado">
+                <option selected>--select--</option>
+                <option value="1">asset</option>
+                <option value="0">idle</option>
+            </select>
+            
+            <div class="invalid-feedback">
+              Por favor, ingresa el estado del cliente.
+            </div>
+            <div class="valid-feedback">
+                ¡Se ve bien!
+              </div>
+          </div>
+        <div class="col-12">
+          <button id="submitBtn" class="btn btn-primary" type="button">Agregar Producto</button>
+        </div>
+      </form>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/producto/producto.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.getElementById('submitBtn').addEventListener('click', function(event) {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+        form.classList.add('was-validated');
+    } else {
+       
+        save();
+    }
+    });
+  });
+
+ 
+var numeroInput = document.getElementById('telefono');
+
+// Agregar un evento para capturar la entrada del teclado
+numeroInput.addEventListener('input', function(event) {
+  var currentValue = event.target.value;
+  var cleanedValue = currentValue.replace(/\D/g, '');
+  var limitedValue = cleanedValue.slice(0, 10);
+  
+
+  event.target.value = limitedValue;
+});
+
+var descriptionInput = document.getElementById('description');
+
+// Agregar un evento para capturar la entrada del teclado
+descriptionInput.addEventListener('input', function(event) {
+  var currentValue = event.target.value;
+  var cleanedValue = currentValue.replace(/\D/g, '');
+  var limitedValue = cleanedValue.slice(0, 10);
+  
+
+  event.target.value = limitedValue;
+});
+</script>
+</body>
+</html>
