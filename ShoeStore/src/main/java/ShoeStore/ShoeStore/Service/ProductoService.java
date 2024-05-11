@@ -1,7 +1,6 @@
 package ShoeStore.ShoeStore.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +22,16 @@ public class ProductoService  extends ABaseService<Producto> implements IProduct
 	@Autowired
 	public IProductoRepository repository;
 
-	@Override
-	public List<Producto> getNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return repository.getNombre(nombre);
-	}
+	
+
+	
+
+
 
 	@Override
-	public List<Producto> getStates(Long state) {
+	public List<Producto> getNombres(String nombre, String estado) {
 		// TODO Auto-generated method stub
-		return repository.getState(state);
+		return repository.getNombreFilter(nombre,estado);
 	}
 
 }

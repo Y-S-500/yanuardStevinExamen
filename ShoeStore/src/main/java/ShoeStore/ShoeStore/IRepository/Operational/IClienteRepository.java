@@ -14,13 +14,16 @@ import ShoeStore.ShoeStore.IRepository.IBaseRepository;
 @Repository
 public interface IClienteRepository extends IBaseRepository<Cliente,Long>{
 
-	@Query(value = "SELECT * FROM shoestore.clientes " +
-            "WHERE (:nombre IS NULL OR clientes.nombre_cliente = :nombre) " +
-            "AND (:ciudad IS NULL OR clientes.ciudad = :ciudad) " +
-            "AND (:sta IS NULL OR clientes.state = :sta)",
-    nativeQuery = true)
-List<Cliente> getNombre(@Param("nombre") String nombre,
-               @Param("ciudad") String ciudad,
-               @Param("sta") Integer sta);
-
+	@Query(value = "SELECT * \r\n"
+	        + "FROM clientes \r\n"
+	        + "WHERE \r\n"
+	        + "    (LOWER(nombre_cliente) LIKE LOWER(CONCAT('%', :nombre, '%'))) AND\r\n"
+	        + "    (LOWER(ciudad) LIKE LOWER(CONCAT('%', :ciudad, '%')))",
+            nativeQuery = true)
+    List<Cliente> getNombre(@Param("nombre") String nombre,
+                            @Param("ciudad") String ciudad
+                            );
+	
 }
+	
+

@@ -25,9 +25,9 @@ public class ClienteService extends ABaseService<Cliente> implements IClienteSer
 	public IClienteRepository repository;
 
 	@Override
-	public List<Cliente> getNombre(String nombre, String ciudad, Integer sta) throws Exception {
+	public List<Cliente> getNombre(String nombre, String ciudad){
 		// TODO Auto-generated method stub
-		return repository.getNombre(nombre, ciudad, sta);
+		return repository.getNombre(nombre, ciudad);
 	}
 
 }

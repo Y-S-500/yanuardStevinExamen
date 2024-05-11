@@ -10,5 +10,6 @@ import ShoeStore.ShoeStore.IService.IBaseService;
 
 public interface IClienteService extends IBaseService<Cliente>{
 
-	List<Cliente> getNombre(String nombre, String ciudad, Integer sta)throws Exception;
+	List<Cliente> getNombre(String nombre, String ciudad)throws Exception;
+
 }
