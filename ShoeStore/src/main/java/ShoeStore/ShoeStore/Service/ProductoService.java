@@ -24,9 +24,15 @@ public class ProductoService  extends ABaseService<Producto> implements IProduct
 	public IProductoRepository repository;
 
 	@Override
-	public List<Producto> getNombre(String nombre, Integer sta) {
+	public List<Producto> getNombre(String nombre) {
 		// TODO Auto-generated method stub
-		return repository.getNombre(nombre,sta);
+		return repository.getNombre(nombre);
+	}
+
+	@Override
+	public List<Producto> getStates(Long state) {
+		// TODO Auto-generated method stub
+		return repository.getState(state);
 	}
 
 }

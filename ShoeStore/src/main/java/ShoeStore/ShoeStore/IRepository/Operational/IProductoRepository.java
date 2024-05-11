@@ -17,12 +17,17 @@ import ShoeStore.ShoeStore.IRepository.IBaseRepository;
 public interface IProductoRepository extends IBaseRepository<Producto,Long>{
 
 	
-	@Query(value = "SELECT * FROM shoestore.productos as p " +
-            "WHERE (:nombre IS NULL OR p.nombre_producto = :nombre) " +
-            "AND (:sta IS NULL OR p.state = :sta)",
+	
+	@Query(value = "SELECT * FROM shoestore.productos\r\n"
+			+ "where productos.nombre_producto = :nombre",
     nativeQuery = true)
-List<Producto> getNombre(@Param("nombre") String nombre,
-                       @Param("sta") Integer sta);
+List<Producto> getNombre(@Param("nombre") String nombre);
+
+	
+	@Query(value = "SELECT * FROM shoestore.productos\r\n"
+			+ "where productos.nombre_producto = :state",
+    nativeQuery = true)
+	List<Producto> getState(@Param("state") Long state);
 
 
 	

@@ -12,7 +12,9 @@ import ShoeStore.ShoeStore.IService.IBaseService;
 
 public interface IProductoService extends IBaseService<Producto>{
 
-	List<Producto> getNombre(String nombre,  Integer sta);
+	List<Producto> getNombre(String nombre);
+
+	List<Producto> getStates(Long state);
 	
 	
 
