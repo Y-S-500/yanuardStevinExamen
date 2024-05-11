@@ -53,69 +53,7 @@
   
    
   }
-  function filters() {
-    var nombre = $("#filterNombre").val();
-    var ciudad = $("#filterCiudad").val();
-    var estado = $("#filterestado").val();
-
-    console.log("ejecutando loadData");
-
-    // Construir la URL de la solicitud AJAX con los parámetros dinámicos
-    var url = "http://localhost:8000/ShoeStore/v1/api/Clientes/filters/{nombre}/{ciudad}/{sta}?nombre=" + encodeURIComponent(nombre);
-
-    // Agregar la ciudad solo si tiene un valor
-    if (ciudad.trim() !== "") {
-        url += "&ciudad=" + encodeURIComponent(ciudad);
-    }
-
-    // Agregar el estado solo si tiene un valor
-    if (estado.trim() !== "") {
-        url += "&sta=" + encodeURIComponent(estado);
-    }
-
-    $.ajax({
-        url: url,
-        method: "GET",
-        dataType: "json",
-        success: function(response) {
-            console.log(response.data);
-            var html = "";
-            var data = response.data;
-            data.forEach(function(item) {
-                console.log(item.id);
-                
-                    html +=
-                        `<tr>
-                            <td>` + item.id + `</td>
-                            <td>` + item.tipoIndentificacion + `</td>
-                            <td>` + item.indentificacion + `</td>
-                            <td>` + item.nombreCliente + `</td>
-                            <td>` + item.apellidoCliente + `</td>
-                            <td>` + item.telefono + `</td>
-                            <td>` + item.direccion + `</td>
-                            <td>` + item.ciudad + `</td>
-                            <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
-                            <td> 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> 
-                                    <img src="/assets/icon/pencil-square.svg" > 
-                                </button>
-                                <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> 
-                                    <img src="/assets/icon/trash3.svg" > 
-                                </button>
-                            </td>
-                        </tr>`;
-                
-            });
-
-            $("#resultData").html(html);
-        },
-        error: function(error) {
-            // Función que se ejecuta si hay un error en la solicitud
-            console.error("Error en la solicitud:", error);
-        },
-    });
-}
-
+ 
 
   
   
@@ -184,6 +122,68 @@
   }
   
   
+
+
+  function filters() {
+    var nombre = $("#filterNombre").val();
+    var ciudad = $("#filterCiudad").val();
+   
+  
+    // Verificar si los campos están vacíos y asignar null si es necesario
+    var consult = {
+      "nombre": nombre !== "" ? nombre : "",
+      "ciudad": ciudad !== "" ? ciudad : ""
+      
+    };
+  
+    console.log("Ejecutando loadData");
+    $.ajax({
+      url: "http://localhost:8000/ShoeStore/v1/api/Clientes/folesd",
+      method: "POST",
+      dataType: "json",
+      contentType: "application/json",
+      data: JSON.stringify(consult),
+      success: function (response) {
+        console.log(response.data);
+        var html = "";
+        var data = response.data;
+        data.forEach(function (item) {
+          console.log(item.id);
+          // Construir el HTML para cada objeto
+          html +=
+            `<tr>
+              <td>` + item.id + `</td>
+              <td>` + item.tipoIndentificacion + `</td>
+              <td>` + item.indentificacion + `</td>
+              <td>` + item.nombreCliente + `</td>
+              <td>` + item.apellidoCliente + `</td>
+              <td>` + item.telefono + `</td>
+              <td>` + item.direccion + `</td>
+              <td>` + item.ciudad + `</td>
+              <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
+              <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})">
+                  <img src="/assets/icon/pencil-square.svg">
+                </button>
+                <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})">
+                  <img src="/assets/icon/trash3.svg">
+                </button>
+              </td>
+            </tr>`;
+        });
+  
+        $("#resultData").html(html);
+      },
+      error: function (error) {
+        // Función que se ejecuta si hay un error en la solicitud
+        console.error("Error en la solicitud:", error);
+      },
+    });
+  }
+  
+
+
+
   function deleteById(id) {
   
     Swal.fire({
@@ -310,8 +310,9 @@
   }
   
   
-  function clearData() {
-    $("#id").val("");
+  function Limpiar() {
+    $("#filterNombre").val("");
+    $("#filterCiudad").val("");
    
     
   }

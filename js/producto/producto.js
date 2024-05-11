@@ -1,15 +1,15 @@
 function save() {
     try {
-      var stateValor = $("#state").val();
+      // var stateValor = $("#estado").val();
 
     
-      var stateBooleano;
+      // var stateBooleano;
       
-      if (stateValor === 1) {
-          stateBooleano = true;
-      } else {
-          stateBooleano = false;
-      }
+      // if (stateValor === 1) {
+      //     stateBooleano = true;
+      // } else {
+      //     stateBooleano = false;
+      // }
   
       var productoDta = {
         "nombreProducto": $("#nombreProducto").val(),
@@ -18,7 +18,7 @@ function save() {
         "precio": $("#precio").val(),
         "procentajeIva": $("#procentajeIva").val(),
         "procentajeDescuento": $("#procentajeDescuento").val(),
-        "state": stateBooleano,
+        "state":  $("#estado").val()
       
       };
       
@@ -80,8 +80,7 @@ function save() {
           var html = "";
           var data = response.data;
           data.forEach(function (item) {
-            if (!item.deletedAt) { // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
-              // Construir el HTML para cada objeto
+            if (!item.deletedAt) { 
               html +=
                 `<tr>
                   <td>${item.id}</td>
@@ -94,12 +93,9 @@ function save() {
               
             
                   <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
-                  <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})">
-                      <img src="../assets/icon/pencil-square.svg">
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})">
-                      <img src="../assets/icon/trash3.svg">
+                  
+                  <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="/assets/icon/pencil-square.svg" > </button>
+                  <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> <img src="/assets/icon/trash3.svg" > </button></td>
                     </button>
                   </td>
                 </tr>`;
@@ -234,7 +230,7 @@ function save() {
           btnAgregar.attr("onclick", "update()");
         },
         error: function (error) {
-          // Función que se ejecuta si hay un error en la solicitud
+         
           console.error("Error en la solicitud:", error);
         },
       });
@@ -250,62 +246,58 @@ function save() {
     
   function filters() {
     var nombre = $("#filterNombre").val();
-    var ciudad = $("#filterestado").val();
-
-
-    console.log("ejecutando loadData");
-
-    // Construir la URL de la solicitud AJAX con los parámetros dinámicos
-    var url = "http://localhost:8000/ShoeStore/v1/api/Clientes/filters/{nombre}/{ciudad}/{sta}?nombre=" + encodeURIComponent(nombre);
-
-    // Agregar la ciudad solo si tiene un valor
- 
-    // Agregar el estado solo si tiene un valor
-    if (estado.trim() !== "") {
-        url += "&sta=" + encodeURIComponent(estado);
-    }
-
+   
+  
+    // Verificar si los campos están vacíos y asignar null si es necesario
+    var consult = {
+      "nombre": nombre ,
+      "estado": ""
+      
+    };
+  
+    console.log("Ejecutando loadData");
     $.ajax({
-        url: url,
-        method: "GET",
-        dataType: "json",
-        success: function(response) {
-            console.log(response.data);
-            var html = "";
-            var data = response.data;
-            console.log(data);
-            data.forEach(function(item) {
-                console.log(item.id);
-                
-                    html +=
-                    `<tr>
-                    <td>${item.id}</td>
-                    <td>${item.nombreProducto}</td>
-                    <td>${item.description}</td>
-                    <td>${item.cantidad}</td>
-                    <td>${item.precio}</td>
-                    <td>${item.procentajeDescuento}</td>
-                    <td>${item.procentajeIva}</td>
-                
-              
-                    <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})">
-                        <img src="../assets/icon/pencil-square.svg">
-                      </button>
-                      <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})">
-                        <img src="../assets/icon/trash3.svg">
-                      </button>
-                    </td>
-                  </tr>`;
-                
-            });
-
-            $("#resultData").html(html);
-        },
-        error: function(error) {
-            // Función que se ejecuta si hay un error en la solicitud
-            console.error("Error en la solicitud:", error);
-        },
+      url: "http://localhost:8000/ShoeStore/v1/api/productos/folesd/filter",
+      method: "POST",
+      dataType: "json",
+      contentType: "application/json",
+      data: JSON.stringify(consult),
+      success: function (response) {
+        console.log(response.data);
+        var html = "";
+        var data = response.data;
+        data.forEach(function (item) {
+          console.log(item.id);
+          // Construir el HTML para cada objeto
+          html +=
+          `<tr>
+            <td>${item.id}</td>
+            <td>${item.nombreProducto}</td>
+            <td>${item.description}</td>
+            <td>${item.cantidad}</td>
+            <td>${item.precio}</td>
+            <td>${item.procentajeDescuento}</td>
+            <td>${item.procentajeIva}</td>
+        
+      
+            <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})">
+                <img src="../assets/icon/pencil-square.svg">
+              </button>
+              <button type="button" class="btn btn-primary" onclick="deleteById(${item.id})">
+                <img src="../assets/icon/trash3.svg">
+              </button>
+            </td>
+          </tr>`;
+        });
+  
+        $("#resultData").html(html);
+      },
+      error: function (error) {
+        // Función que se ejecuta si hay un error en la solicitud
+        console.error("Error en la solicitud:", error);
+      },
     });
-}
+  }
+  

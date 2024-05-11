@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button id="submitBtn" class="btn btn-primary" type="button">Agregar Producto</button>
+                    <button id="submitBtn" class="btn btn-primary" type="button">Crear Venta</button>
                 </div>
 
            
@@ -178,6 +178,8 @@
     <script>
         
         loadCliente();
+        
+        loadCProducto();
     </script>
 
     <script>
@@ -194,6 +196,36 @@
                 }
             });
         });
+
+        
+function calcularSubtotal() {
+    var cantidad = parseFloat(document.getElementById('cantidad').value);
+    var precio = parseFloat(document.getElementById('precio').value);
+    var subtotal = cantidad * precio;
+    document.getElementById('subtotal').value = subtotal.toFixed(2);
+    
+    calcularTotal(); 
+}
+
+// Función para calcular el total y actualizar el input correspondiente
+function calcularTotal() {
+    var subtotal = parseFloat(document.getElementById('subtotal').value);
+    var descuento = parseFloat(document.getElementById('procentajeDescuento').value);
+ 
+    var total = subtotal - descuento ;
+    console.log(total);
+    document.getElementById('total').value = total.toFixed(2); // Redondeamos a 2 decimales
+}
+
+// Asociar la función de cálculo al evento 'input' en los campos de cantidad, precio, descuento e IVA
+document.getElementById('cantidad').addEventListener('input', calcularSubtotal);
+document.getElementById('precio').addEventListener('input', calcularSubtotal);
+document.getElementById('procentajeDescuento').addEventListener('input', calcularTotal);
+document.getElementById('iva').addEventListener('input', calcularTotal);
+
+
+calcularSubtotal();
+
 
 
     </script>

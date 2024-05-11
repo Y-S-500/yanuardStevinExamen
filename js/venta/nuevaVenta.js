@@ -116,47 +116,93 @@ function save() {
   
 
 function loadCProducto() {
-    console.log("Ejecutando loadCity");
-    $.ajax({
-      url: "http://localhost:8000/ShoeStore/v1/api/productos",
-      method: "GET",
-      dataType: "json",
-      success: function (response) {
-        if (response.status && Array.isArray(response.data)) {
-          var cities = response.data.map(function (producto) {
-            return {
-              label: producto.nombreProducto,
-              value: producto.id // Agrega el ID como valor
-            };
-          });
+    // console.log("Ejecutando loadCity");
+    // $.ajax({
+    //   url: "http://localhost:8000/ShoeStore/v1/api/productos",
+    //   method: "GET",
+    //   dataType: "json",
+    //   success: function (response) {
+    //     if (response.status && Array.isArray(response.data)) {
+    //       var cities = response.data.map(function (producto) {
+    //         return {
+    //           label: producto.nombreProducto,
+    //           value: producto.id // Agrega el ID como valor
+    //         };
+    //       });
   
-          // Inicializar el autocompletado en el campo de entrada de texto
-          $("#producto_id").autocomplete({
-            source: function(request, response) {
-              var results = $.ui.autocomplete.filter(cities, request.term);
-              if (!results.length) {
-                results = [{ label: 'No se encontraron resultados', value: null }];
-              }
-              response(results);
-            },
-            select: function (event, ui) {
-              // Al seleccionar un elemento del autocompletado, guarda el ID en un campo oculto
-              $("#selected_producto_id").val(ui.item.value);
-              // Actualiza el valor del campo de entrada con el nombre de la persona seleccionada
-              $("#producto_id").val(ui.item.label);
-              console.log("ID de ciudad seleccionada: " + ui.item.value);
-              return false; // Evita la propagación del evento y el formulario de envío
-            }
-          });
+    //       // Inicializar el autocompletado en el campo de entrada de texto
+    //       $("#producto_id").autocomplete({
+    //         source: function(request, response) {
+    //           var results = $.ui.autocomplete.filter(cities, request.term);
+    //           if (!results.length) {
+    //             results = [{ label: 'No se encontraron resultados', value: null }];
+    //           }
+    //           response(results);
+    //         },
+    //         select: function (event, ui) {
+           
+    //           $("#selected_producto_id").val(ui.item.value);
+            
+    //           $("#producto_id").val(ui.item.label);
+    //           console.log("ID de ciudad seleccionada: " + ui.item.value);
+    //           return false; 
+    //         }
+    //       });
+    //     } else {
+    //       console.error("Error: No se pudo obtener la lista de ciudades.");
+    //     }
+    //   },
+    //   error: function (error) {
+     
+    //     console.error("Error en la solicitud:", error);
+    //   },
+    // });
+
+    console.log("Ejecutando loadCity");
+$.ajax({
+    url: "http://localhost:8000/ShoeStore/v1/api/productos",
+    method: "GET",
+    dataType: "json",
+    success: function (response) {
+        if (response.status && Array.isArray(response.data)) {
+            var productos = response.data.map(function (producto) {
+                return {
+                    label: producto.nombreProducto,
+                    value: producto.id,
+                    precio: producto.precio 
+                };
+            });
+
+           
+            $("#producto_id").autocomplete({
+                source: function(request, response) {
+                    var results = $.ui.autocomplete.filter(productos, request.term);
+                    if (!results.length) {
+                        results = [{ label: 'No se encontraron resultados', value: null, precio: null }];
+                    }
+                    response(results);
+                },
+                select: function (event, ui) {
+                    
+                    $("#selected_producto_id").val(ui.item.value);
+                   
+                    $("#producto_id").val(ui.item.label);
+                    
+                    $("#precio").val(ui.item.precio);
+                    console.log("ID de producto seleccionado: " + ui.item.value);
+                    return false; 
+                }
+            });
         } else {
-          console.error("Error: No se pudo obtener la lista de ciudades.");
+            console.error("Error: No se pudo obtener la lista de productos.");
         }
-      },
-      error: function (error) {
-        // Función que se ejecuta si hay un error en la solicitud
+    },
+    error: function (error) {
+        //
         console.error("Error en la solicitud:", error);
-      },
-    });
+    },
+});
+
   }
   
   

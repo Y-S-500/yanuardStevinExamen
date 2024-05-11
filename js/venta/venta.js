@@ -10,7 +10,7 @@
           var html = "";
           var data = response.data;
           data.forEach(function (item) {
-            if (!item.deletedAt) { // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
+            // Verificar si el campo deletedAt es nulo (no eliminado lógicamente)
               // Construir el HTML para cada objeto
               html +=
                 `<tr>
@@ -29,7 +29,7 @@
                    
                   </td>
                 </tr>`;
-            }
+            
           });
     
           $("#resultData").html(html);
@@ -322,7 +322,6 @@
     
 
     function loadCliente() {
-      console.log("Ejecutando loadCity");
       $.ajax({
         url: "http://localhost:8000/ShoeStore/v1/api/Clientes",
         method: "GET",
@@ -336,7 +335,7 @@
               };
             });
     
-            // Inicializar el autocompletado en el campo de entrada de texto
+          
             $("#cliente_id").autocomplete({
               source: function(request, response) {
                 var results = $.ui.autocomplete.filter(cities, request.term);
@@ -346,12 +345,12 @@
                 response(results);
               },
               select: function (event, ui) {
-                // Al seleccionar un elemento del autocompletado, guarda el ID en un campo oculto
+                
                 $("#selected_cliente_id").val(ui.item.value);
-                // Actualiza el valor del campo de entrada con el nombre de la persona seleccionada
+               
                 $("#cliente_id").val(ui.item.label);
                 console.log("ID de ciudad seleccionada: " + ui.item.value);
-                return false; // Evita la propagación del evento y el formulario de envío
+                return false;
               }
             });
           } else {
@@ -366,3 +365,105 @@
     }
     
     
+    
+
+  function filters() {
+    var fi = $("#filterFechai").val();
+    var fe = $("#filterFechad").val();
+   
+  
+    // Verificar si los campos están vacíos y asignar null si es necesario
+  
+  
+    console.log("Ejecutando loadData");
+    $.ajax({
+      url: "http://localhost:8000/ShoeStore/v1/api/ventas/fil/"+ fi +"/"+fe,
+      method: "GET",
+      dataType: "json",
+  
+      
+      success: function (response) {
+        console.log(response.data);
+        var html = "";
+        var data = response.data;
+        data.forEach(function (item) {
+          console.log(item.id);
+         
+          html +=
+          `<tr>
+          <td>${item.id}</td>
+          <td>${item.cliente.id}</td>
+          <td>${item.total}</td>
+          <td>${item.date}</td>
+          <td>${item.state}</td>
+        
+    
+          
+          <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="detalle(${item.id})">
+            Ver detalle
+            </button>
+           
+          </td>
+        </tr>`;
+        });
+  
+        $("#resultData").html(html);
+      },
+      error: function (error) {
+        // Función que se ejecuta si hay un error en la solicitud
+        console.error("Error en la solicitud:", error);
+      },
+    });
+  }
+  
+
+  
+function loadCProducto() {
+
+  console.log("Ejecutando loadCity");
+$.ajax({
+  url: "http://localhost:8000/ShoeStore/v1/api/productos",
+  method: "GET",
+  dataType: "json",
+  success: function (response) {
+      if (response.status && Array.isArray(response.data)) {
+          var productos = response.data.map(function (producto) {
+              return {
+                  label: producto.nombreProducto,
+                  value: producto.id,
+                  precio: producto.precio 
+              };
+          });
+
+         
+          $("#producto_id").autocomplete({
+              source: function(request, response) {
+                  var results = $.ui.autocomplete.filter(productos, request.term);
+                  if (!results.length) {
+                      results = [{ label: 'No se encontraron resultados', value: null, precio: null }];
+                  }
+                  response(results);
+              },
+              select: function (event, ui) {
+                  
+                  $("#selected_producto_id").val(ui.item.value);
+                 
+                  $("#producto_id").val(ui.item.label);
+                  
+                  $("#precio").val(ui.item.precio);
+                  console.log("ID de producto seleccionado: " + ui.item.value);
+                  return false; 
+              }
+          });
+      } else {
+          console.error("Error: No se pudo obtener la lista de productos.");
+      }
+  },
+  error: function (error) {
+      //
+      console.error("Error en la solicitud:", error);
+  },
+});
+
+}

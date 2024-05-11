@@ -38,21 +38,13 @@
         <input type="text" class="form-control" id="filterCiudad" value="" required>
         
       </div>
-      <div class="col-md-4">
-        <label for="validationCustomUsername" class="form-label">Filtar por estado</label>
-          <select class="form-select" id="filterestado">
-            <option selected></option>
-            <option value="true">asset</option>
-            <option value="false">idle</option>
-        </select>
-          
-        </div>
+     
     
      
     
       <div class="col-20">
         <button id="submitBtn" class="btn btn-primary" onclick="filters()" type="button">Aplicar Filtro</button>
-        <button id="submitBtn" class="btn btn-primary" type="button">Limpiar Filtro</button>
+        <button id="submitBtn" class="btn btn-primary" onclick="Limpiar()" type="button">Limpiar Filtro</button>
       </div> 
     
       </form>
