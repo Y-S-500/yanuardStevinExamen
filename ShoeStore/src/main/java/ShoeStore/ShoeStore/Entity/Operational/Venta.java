@@ -15,7 +15,19 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ventas")
 public class Venta extends ABaseEntity {
+	@Column(name="state", nullable = false)
+	private String state;
 
+
+
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	@Column(name="total",nullable = false)
 	private String total;

@@ -21,9 +21,21 @@ public class Cliente extends ABaseEntity {
 	    @Column(name = "apellido_cliente", length = 50, nullable = false)
 	    private String apellidoCliente;
 	    
-	   
+	    @Column(name="state", nullable = false)
+		private Boolean state;
+
 	    
-	    @Column(name = "telefono", length = 15, nullable = false)
+	    public Boolean getState() {
+			return state;
+		}
+
+
+		public void setState(Boolean state) {
+			this.state = state;
+		}
+
+
+		@Column(name = "telefono", length = 15, nullable = false)
 	    private String telefono;
 	    
 	    @Column(name = "tipo_indentificacion", nullable = false)
@@ -36,13 +48,25 @@ public class Cliente extends ABaseEntity {
 	    private String direccion;
 	    
 	    
+
+	    @Column(name = "ciudad", length = 100, nullable = false)
+	    private String ciudad;
 	    
 	    
-	    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-		@JoinColumn(name = "Ciudad_id", nullable = false)
-	    private Ciudad ciudad;
+	    
+	 
 	    
 	    
+
+
+		public String getCiudad() {
+			return ciudad;
+		}
+
+
+		public void setCiudad(String ciudad) {
+			this.ciudad = ciudad;
+		}
 
 
 		public String getNombreCliente() {
@@ -106,15 +130,6 @@ public class Cliente extends ABaseEntity {
 		}
 
 
-		public Ciudad getCiudad() {
-			return ciudad;
-		}
-
-
-		public void setCiudad(Ciudad ciudad) {
-			this.ciudad = ciudad;
-		}
-	    
 	    
 
 	

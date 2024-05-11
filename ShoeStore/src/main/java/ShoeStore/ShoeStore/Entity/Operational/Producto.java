@@ -10,6 +10,9 @@ import ShoeStore.ShoeStore.Entity.ABaseEntity;
 @Entity
 @Table(name="productos")
 public class Producto extends ABaseEntity{
+	@Column(name="state", nullable = false)
+	private Boolean state;
+
 	
 	@Column(name="nombre_producto",nullable = false)
 	private String nombreProducto;
@@ -30,6 +33,14 @@ public class Producto extends ABaseEntity{
 	private int ProcentajeDescuento;
 	
 	
+
+	public Boolean getState() {
+		return state;
+	}
+
+	public void setState(Boolean state) {
+		this.state = state;
+	}
 
 	public String getDescription() {
 		return description;

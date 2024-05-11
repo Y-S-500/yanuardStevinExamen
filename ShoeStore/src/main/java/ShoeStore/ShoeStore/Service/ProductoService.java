@@ -1,5 +1,8 @@
 package ShoeStore.ShoeStore.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,11 @@ public class ProductoService  extends ABaseService<Producto> implements IProduct
 	
 	@Autowired
 	public IProductoRepository repository;
+
+	@Override
+	public List<Producto> getNombre(String nombre, Integer sta) {
+		// TODO Auto-generated method stub
+		return repository.getNombre(nombre,sta);
+	}
 
 }

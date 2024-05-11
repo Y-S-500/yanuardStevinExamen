@@ -91,7 +91,7 @@ public abstract class ABaseService<T extends ABaseEntity> implements IBaseServic
 
         T entityUpdate = op.get();
        
-        getRepository().save(entityUpdate);
+        getRepository().delete(entityUpdate);
     }
 
     

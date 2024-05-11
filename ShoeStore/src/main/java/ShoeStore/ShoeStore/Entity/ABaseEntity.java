@@ -13,9 +13,7 @@ public abstract class ABaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="state", nullable = false)
-	private Boolean state;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -24,12 +22,6 @@ public abstract class ABaseEntity {
 		this.id = id;
 	}
 
-	public Boolean getState() {
-		return state;
-	}
-
-	public void setState(Boolean state) {
-		this.state = state;
-	}	
+	
 
 }

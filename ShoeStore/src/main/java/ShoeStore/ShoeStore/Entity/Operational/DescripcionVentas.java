@@ -14,6 +14,8 @@ import ShoeStore.ShoeStore.Entity.ABaseEntity;
 @Table(name = "descripcion_ventas")
 public class DescripcionVentas extends ABaseEntity {
 
+
+
 	@Column(name="cantidad",nullable = false)
 	private Integer cantidad;
 	
